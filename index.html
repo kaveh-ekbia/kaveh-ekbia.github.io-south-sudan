@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="data/ssd_admbnda_adm2_imwg_nbs_20180817_0.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+
+            if (e.target.feature.geometry.type === 'LineString') {
+              highlightLayer.setStyle({
+                color: '#ffff00',
+              });
+            } else {
+              highlightLayer.setStyle({
+                fillColor: '#ffff00',
+                fillOpacity: 1
+              });
+            }
+            highlightLayer.openPopup();
+        }
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[3.269127279900066,22.328336840802294],[12.45506467410004,37.77432045919781]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        function pop_ssd_admbnda_adm2_imwg_nbs_20180817_0(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ADM2_EN'] !== null ? autolinker.link(feature.properties['ADM2_EN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ADM1_EN'] !== null ? autolinker.link(feature.properties['ADM1_EN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ADM0_EN'] !== null ? autolinker.link(feature.properties['ADM0_EN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Language'] !== null ? autolinker.link(feature.properties['Language'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ssd_admbnda_adm2_imwg_nbs_20180817_0_0(feature) {
+            switch(String(feature.properties['Language'])) {
+                case 'Acholi, Lotuho':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(207,50,136,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Arabic, Yulu, Kresh, Njalgulgule':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(219,167,100,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Avukaya, Tara Baaka':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(200,38,97,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Azande':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(110,218,96,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Bari':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(158,60,204,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Bari, Lokoya':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(132,231,213,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Beli':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(219,117,136,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Bongo':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(234,132,106,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Dinka':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(215,238,65,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Dinka, Bongo':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(196,84,213,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Dinka, Murle':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(215,95,187,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Dinka, Nuer':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(103,89,209,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Jur Modo, Morokodo':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(41,202,238,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Kacipo-Balesi':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(108,66,205,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Kaliko, Olu\'bo':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(238,100,14,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Komo, , Opuo':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(19,115,232,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Lango, Lotuho, Dongotono':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(202,25,193,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Lopid, Lokoya, Tennet':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(121,127,214,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Lotuho':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(185,223,101,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Moru':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(149,219,117,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Moru, Avukaya, Morokodo':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(228,123,123,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Murle, Nuer':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(135,200,70,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Narim, Didinga':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(172,127,218,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Nuer':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(129,229,191,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Toposa':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(93,217,124,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Uduk':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(53,93,213,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zande, Avukaya, Tara Baaka, Morokodo, Azande':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(48,161,226,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zande, Azande':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(139,230,230,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zande, Bongo, Ndogo':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(213,169,37,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zande, Ndogo, Azande':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(88,211,96,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zande, Njalgulgule':
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(213,203,58,1.0)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,255,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_ssd_admbnda_adm2_imwg_nbs_20180817_0');
+        map.getPane('pane_ssd_admbnda_adm2_imwg_nbs_20180817_0').style.zIndex = 400;
+        map.getPane('pane_ssd_admbnda_adm2_imwg_nbs_20180817_0').style['mix-blend-mode'] = 'normal';
+        var layer_ssd_admbnda_adm2_imwg_nbs_20180817_0 = new L.geoJson(json_ssd_admbnda_adm2_imwg_nbs_20180817_0, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+            layerName: 'layer_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+            pane: 'pane_ssd_admbnda_adm2_imwg_nbs_20180817_0',
+            onEachFeature: pop_ssd_admbnda_adm2_imwg_nbs_20180817_0,
+            style: style_ssd_admbnda_adm2_imwg_nbs_20180817_0_0,
+        });
+        bounds_group.addLayer(layer_ssd_admbnda_adm2_imwg_nbs_20180817_0);
+        map.addLayer(layer_ssd_admbnda_adm2_imwg_nbs_20180817_0);
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .title += 'Search for a place';
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'ssd_admbnda_adm2_imwg_nbs_20180817<br /><table><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_AcholiLotuho0.png" /></td><td>Acholi, Lotuho</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_ArabicYuluKreshNjalgulgule1.png" /></td><td>Arabic, Yulu, Kresh, Njalgulgule</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_AvukayaTaraBaaka2.png" /></td><td>Avukaya, Tara Baaka</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_Azande3.png" /></td><td>Azande</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_Bari4.png" /></td><td>Bari</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_BariLokoya5.png" /></td><td>Bari, Lokoya</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_Beli6.png" /></td><td>Beli</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_Bongo7.png" /></td><td>Bongo</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_Dinka8.png" /></td><td>Dinka</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_DinkaBongo9.png" /></td><td>Dinka, Bongo</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_DinkaMurle10.png" /></td><td>Dinka, Murle</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_DinkaNuer11.png" /></td><td>Dinka, Nuer</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_JurModoMorokodo12.png" /></td><td>Jur Modo, Morokodo</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_KacipoBalesi13.png" /></td><td>Kacipo-Balesi</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_KalikoOlubo14.png" /></td><td>Kaliko, Olu\'bo</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_KomoOpuo15.png" /></td><td>Komo, , Opuo</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_LangoLotuhoDongotono16.png" /></td><td>Lango, Lotuho, Dongotono</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_LopidLokoyaTennet17.png" /></td><td>Lopid, Lokoya, Tennet</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_Lotuho18.png" /></td><td>Lotuho</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_Moru19.png" /></td><td>Moru</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_MoruAvukayaMorokodo20.png" /></td><td>Moru, Avukaya, Morokodo</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_MurleNuer21.png" /></td><td>Murle, Nuer</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_NarimDidinga22.png" /></td><td>Narim, Didinga</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_Nuer23.png" /></td><td>Nuer</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_Toposa24.png" /></td><td>Toposa</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_Uduk25.png" /></td><td>Uduk</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_ZandeAvukayaTaraBaakaMorokodoAzande26.png" /></td><td>Zande, Avukaya, Tara Baaka, Morokodo, Azande</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_ZandeAzande27.png" /></td><td>Zande, Azande</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_ZandeBongoNdogo28.png" /></td><td>Zande, Bongo, Ndogo</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_ZandeNdogoAzande29.png" /></td><td>Zande, Ndogo, Azande</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_ZandeNjalgulgule30.png" /></td><td>Zande, Njalgulgule</td></tr><tr><td style="text-align: center;"><img src="legend/ssd_admbnda_adm2_imwg_nbs_20180817_0_31.png" /></td><td></td></tr></table>': layer_ssd_admbnda_adm2_imwg_nbs_20180817_0,}).addTo(map);
+        setBounds();
+        map.addControl(new L.Control.Search({
+            layer: layer_ssd_admbnda_adm2_imwg_nbs_20180817_0,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'Language'}));
+        document.getElementsByClassName('search-button')[0].className +=
+         ' fa fa-binoculars';
+        </script>
+    </body>
+</html>
